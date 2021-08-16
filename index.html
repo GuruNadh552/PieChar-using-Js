@@ -1,0 +1,93 @@
+
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+
+      function drawChart(sid,nop,noa) {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Attendance', 'No oF Days'],
+          ['Present',     nop],
+          ['Absent',noa]
+        ]);
+
+        var options = {
+          title: sid + ' Attendance'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+      
+      function submitData(){
+      	
+        const sid = document.getElementById('sid').value;
+        //document.write(sid);
+        const nop = parseInt(document.getElementById('nop').value);
+        //document.write(nop);
+        const noa = parseInt(document.getElementById('noa').value);
+
+        if(sid==="" || nop=="" || noa==""){
+          alert("Please Fill all Fields");
+        }
+        else{
+          document.getElementById('piechart').style.display = "block";
+          drawChart(sid,nop,noa);
+        }
+      }
+    </script>
+    
+    <style>
+    *{
+    	margin:0;
+    	padding:0;
+    }
+    .card{
+    	width:500px;
+      background-color:#fff;
+      margin: 50px;
+      padding:18px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px #ccc;
+      border-radius:10px;
+    }
+    input{
+      width:90%;
+      display: block;
+      padding: 10px;
+      outline: none;
+      margin: 18px;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+    button{
+      background-color: #002b70;
+      padding: 10px;
+      width:90%;
+      color: #fff;
+      font-weight: bold;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+    #piechart{
+      box-shadow: 0 0 10px #ccc ;
+    }
+    </style>
+
+  </head>
+  <body>
+    <center>
+    <div class="card">
+	    <input type="text" id="sid" placeholder="Enter Student ID" required/>
+	    <input type="text" id="nop" placeholder="Enter No of Presents" required/>
+	    <input type="text" id="noa" placeholder="Enter No of Absents" required/>
+	    <button onClick="submitData()">Submit</button>
+    </div>
+    <div id="piechart" style="width: 900px; height: 500px;border:1px solid #000; display:none;"></div>
+  </center>
+  </body>
+</html>
+
